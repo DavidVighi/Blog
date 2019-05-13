@@ -20,4 +20,28 @@ class BlogController extends AbstractController
             'owner' => 'David',
         ]);
     }
+    /**
+     *
+     * @Route("/blog/list/{page}",
+     *     requirements={"page"="\d+"},
+     *     defaults={"page"=1},
+     *     name="blog_list"
+     * )
+     */
+    public function list($page)
+    {
+        return $this->render('blog/list.html.twig', ['page' => $page]);
+    }
+    /**
+     *
+     * @Route("/blog/show/{slug}",
+     *     requirements={"slug"="([a-z\/0-9\-])+"},
+     *     defaults={"slug"="article-sans-titre"},
+     *     name="blog_list"
+     * )
+     */
+    public function show($slug)
+    {
+        return $this->render('blog/show.html.twig', ['slug' => ucwords(str_replace('-', ' ', $slug))]);
+    }
 }
