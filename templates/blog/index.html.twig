@@ -1,13 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}<h1>{{ owner }}'s blog index</h1><!DOCTYPE html>{% endblock %}
-{% block javascripts %}{% endblock %}
-</body>
-</html>
+{# templates/blog/show.html.twig #}{#
 
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ slug }}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+    {% if articles is defined and articles is not empty %}
+{% for article in articles %}
+    <div>
+        <h1>Real articles title : {{ article.title }}</h1>
+        <h2>Category : {{ article.category.name }}</h2>
+        <p>{{ article.content }}</p>
+    </div>{% endfor %}
+    {% endif %}
+
+    <a href="{{ path('app_index') }}">
+        Back to homepage.
+    </a>
+
+{% endblock %}#}
+{% extends 'base.html.twig' %}
+
+{% block title %}All articles{% endblock %}
+
+{% block body %}
+    {# {{ dump(articles)}} #}
+    <h1>All articles from article s table : </h1>
+    {% for article in articles %}
+        <div>
+            <h2>{{ loop.index }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+            <p>{{ article.content }}</p>
+        </div>
+    {% else %}
+        Aucun article trouvé.
+    {% endfor %}
+
+    <a href="{{ path('app_index') }}">
+        Back to homepage.
+    </a>
+    <br>
+
+{% endblock %}
